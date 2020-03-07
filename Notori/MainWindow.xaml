@@ -1,0 +1,64 @@
+﻿<Window x:Class="Notori.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Notori"
+        mc:Ignorable="d"
+        Title="Notori" Height="550" Width="600"
+        Icon="Resources/Notori.ico"
+        Activated="OnActiveRefresh">
+
+    <Grid Background="{Binding Settings.Background}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Grid.Column="0" Grid.Row="0" Margin="10" Content="Notes" Click="OnNotesClicked"/>
+        <Button Grid.Column="0" Grid.Row="1" Margin="10" Content="Todos" Click="OnTodosClicked"/>
+        <CheckBox Grid.Column="0" Grid.Row="2" 
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  HorizontalContentAlignment="Center"
+                  Content="Dark mode"
+                  Foreground="{Binding Settings.TextColor}"
+                  IsChecked="{Binding Settings.IsDarkMode}"
+                  Checked="OnCheckedChange"
+                  Unchecked="OnUncheckedChange"/>
+        <Button Grid.Column="0" Grid.Row="4" Margin="10" Content="Delete" Click="OnDeleteClicked"/>
+        <Button Grid.Column="0" Grid.Row="5" Margin="10" Content="Delete all" Click="OnDeleteAllClicked"/>
+        <Button Grid.Column="0" Grid.Row="7" Margin="10" VerticalAlignment="Bottom" Content="Exit" Click="OnExitClicked"/>
+        <ListBox Grid.Column="1"
+                 Grid.Row="0"
+                 Grid.RowSpan="8"
+                 Margin="5"
+                 ItemsSource="{Binding Notes}"
+                 Background="{Binding Settings.Background}"
+                 SelectedItem="{Binding SelectedNote}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="Auto" Margin="5" Background="{Binding Settings.Background}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="{Binding NoteText}" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{Binding Settings.Background}" Foreground="{Binding DataContext.Settings.TextColor,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
+                        <TextBlock Grid.Row="2" Text="{Binding LocalizedTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{Binding Settings.Background}" Foreground="{Binding DataContext.Settings.TextColor,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>

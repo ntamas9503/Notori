@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29230.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notori", "Notori.csproj", "{A475E9C8-0110-4240-81CE-0606198E4696}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A475E9C8-0110-4240-81CE-0606198E4696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A475E9C8-0110-4240-81CE-0606198E4696}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A475E9C8-0110-4240-81CE-0606198E4696}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A475E9C8-0110-4240-81CE-0606198E4696}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A36B6AE-B430-4882-B446-193285F28B4E}
+	EndGlobalSection
+EndGlobal
