@@ -97,8 +97,7 @@ namespace Notori
                 var setting = settings.Query().FirstOrDefault();
                 if (setting == null)
                 {
-                    var newSetting = new Settings();
-                    newSetting.IsDarkMode = false;
+                    var newSetting = new Settings {IsDarkMode = false};
                     settings.Insert(newSetting);
                     return newSetting;
                 }
@@ -106,11 +105,13 @@ namespace Notori
             }
         }
 
-        public static void UpdateSettings(Settings set)
+        public static void UpdateSettings(bool isDarkMode)
         {
             using (var db = new LiteDatabase(connectionString))
             {
                 var settings = db.GetCollection<Settings>("settings");
+                var set = settings.Query().FirstOrDefault();
+                set.IsDarkMode = isDarkMode;
                 settings.Update(set);
             }
         }

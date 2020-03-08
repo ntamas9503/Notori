@@ -3,7 +3,7 @@
     public class Settings : Bindable
     {
         public int Id { get; set; }
-        public bool isDarkMode;
+        private bool isDarkMode;
         public bool IsDarkMode 
         {
             get => isDarkMode;

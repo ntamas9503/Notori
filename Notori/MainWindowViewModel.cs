@@ -11,6 +11,8 @@ namespace Notori
         private bool isNoteShowing;
         private bool isTodosShowing;
         private Note selectedNote;
+        private bool doNotNeedRestart;
+        private bool isDarkMode;
 
         public ObservableCollection<Note> Notes
         {
@@ -43,12 +45,34 @@ namespace Notori
         }
 
         public bool IsStartingApplication { get; set; }
+
+        public bool DoNotNeedRestart
+        {
+            get => doNotNeedRestart;
+            set
+            {
+                doNotNeedRestart = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsDarkMode
+        {
+            get => isDarkMode;
+            set
+            {
+                isDarkMode = value;
+                OnPropertyChanged();
+            }
+        }
         
         public MainWindowViewModel(Settings settings)
         {
             this.notes = new ObservableCollection<Note>();
             this.Settings = settings;
+            this.IsDarkMode = Settings.IsDarkMode;
             IsStartingApplication = true;
+            DoNotNeedRestart = true;
         }
 
         public void LoadNotesInList()
@@ -81,7 +105,11 @@ namespace Notori
 
         public void UpdateSettings()
         {
-            DbManager.UpdateSettings(Settings);
+            DbManager.UpdateSettings(IsDarkMode);
+            if (!IsStartingApplication)
+            {
+                DoNotNeedRestart = false;
+            }
         }
 
         public void DeleteNote()
@@ -101,13 +129,16 @@ namespace Notori
 
         public void DeleteAll()
         {
-            if (isNoteShowing)
+            if (Notes.Any())
             {
-                DbManager.DropNotes();
-            }
-            else
-            {
-                DbManager.DropTodos();
+                if (isNoteShowing)
+                {
+                    DbManager.DropNotes();
+                }
+                else
+                {
+                    DbManager.DropTodos();
+                }
             }
         }
 

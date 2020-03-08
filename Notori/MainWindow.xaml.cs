@@ -26,7 +26,7 @@ namespace Notori
         private void LaunchNoteWindow(object sender, HotkeyEventArgs e)
         {
             NoteWindow note = new NoteWindow(settings);
-            note.Show();
+            note.ShowDialog();
         }
 
         private void OnNotesClicked(object sender, RoutedEventArgs e)

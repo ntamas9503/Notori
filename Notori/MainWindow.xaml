@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Notori" Height="550" Width="600"
         Icon="Resources/Notori.ico"
+        ResizeMode="NoResize"
         Activated="OnActiveRefresh">
 
     <Grid Background="{Binding Settings.Background}">
@@ -24,21 +25,22 @@
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Grid.Column="0" Grid.Row="0" Margin="10" Content="Notes" Click="OnNotesClicked"/>
-        <Button Grid.Column="0" Grid.Row="1" Margin="10" Content="Todos" Click="OnTodosClicked"/>
+        <Button Grid.Column="0" Grid.Row="0" Margin="10" Content="Notes" FontWeight="SemiBold" Click="OnNotesClicked" IsEnabled="{Binding DoNotNeedRestart}"/>
+        <Button Grid.Column="0" Grid.Row="1" Margin="10" Content="To-Dos" FontWeight="SemiBold" Click="OnTodosClicked" IsEnabled="{Binding DoNotNeedRestart}"/>
         <CheckBox Grid.Column="0" Grid.Row="2" 
                   VerticalAlignment="Center"
                   HorizontalAlignment="Center"
                   VerticalContentAlignment="Center"
                   HorizontalContentAlignment="Center"
                   Content="Dark mode"
+                  FontWeight="SemiBold"
                   Foreground="{Binding Settings.TextColor}"
-                  IsChecked="{Binding Settings.IsDarkMode}"
+                  IsChecked="{Binding IsDarkMode}"
                   Checked="OnCheckedChange"
                   Unchecked="OnUncheckedChange"/>
-        <Button Grid.Column="0" Grid.Row="4" Margin="10" Content="Delete" Click="OnDeleteClicked"/>
-        <Button Grid.Column="0" Grid.Row="5" Margin="10" Content="Delete all" Click="OnDeleteAllClicked"/>
-        <Button Grid.Column="0" Grid.Row="7" Margin="10" VerticalAlignment="Bottom" Content="Exit" Click="OnExitClicked"/>
+        <Button Grid.Column="0" Grid.Row="4" Margin="10" Content="Delete" FontWeight="SemiBold" Click="OnDeleteClicked" IsEnabled="{Binding DoNotNeedRestart}"/>
+        <Button Grid.Column="0" Grid.Row="5" Margin="10" Content="Delete all" FontWeight="SemiBold" Click="OnDeleteAllClicked" IsEnabled="{Binding DoNotNeedRestart}"/>
+        <Button Grid.Column="0" Grid.Row="7" Margin="10" VerticalAlignment="Bottom" Content="Exit" FontWeight="SemiBold" Click="OnExitClicked"/>
         <ListBox Grid.Column="1"
                  Grid.Row="0"
                  Grid.RowSpan="8"
@@ -49,13 +51,16 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Height="Auto" Margin="5" Background="{Binding Settings.Background}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/> 
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="10"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="{Binding NoteText}" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{Binding Settings.Background}" Foreground="{Binding DataContext.Settings.TextColor,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
-                        <TextBlock Grid.Row="2" Text="{Binding LocalizedTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{Binding Settings.Background}" Foreground="{Binding DataContext.Settings.TextColor,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Width="450" Text="{Binding NoteText}" FontWeight="SemiBold" TextWrapping="Wrap"  HorizontalAlignment="Left" VerticalAlignment="Center" Background="{Binding Settings.Background}" Foreground="{Binding DataContext.Settings.TextColor,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
+                        <TextBlock Grid.Column="0" Grid.Row="2" Width="450" Text="{Binding LocalizedTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{Binding Settings.Background}" Foreground="{Binding DataContext.Settings.TextColor,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
