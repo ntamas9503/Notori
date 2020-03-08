@@ -6,6 +6,7 @@ namespace Notori
     {
         private string note;
         private Settings settings;
+        private string remainingCharacters;
         
         public string Note
         {
@@ -27,9 +28,22 @@ namespace Notori
             }
         }
 
+        public string RemainingCharacters
+        {
+            get => remainingCharacters;
+            set
+            {
+                remainingCharacters = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int MaxCharacters => 300;
+
         public NoteWindowViewModel(Settings settings)
         {
             this.settings = settings;
+            RemainingCharacters = $"0/{MaxCharacters.ToString()}";
         }
 
         public void SaveNote()
@@ -57,6 +71,11 @@ namespace Notori
                     DbManager.AddNote(newNote);
                 }
             }
+        }
+
+        public void ShowRemainingCharacters()
+        {
+            RemainingCharacters = $"{Note?.Length}/{MaxCharacters.ToString()}";
         }
     }
 }

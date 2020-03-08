@@ -50,18 +50,20 @@
                  SelectedItem="{Binding SelectedNote}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Height="Auto" Margin="5" Background="{Binding Settings.Background}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/> 
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="10"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Column="0" Grid.Row="0" Width="450" Text="{Binding NoteText}" FontWeight="SemiBold" TextWrapping="Wrap"  HorizontalAlignment="Left" VerticalAlignment="Center" Background="{Binding Settings.Background}" Foreground="{Binding DataContext.Settings.TextColor,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
-                        <TextBlock Grid.Column="0" Grid.Row="2" Width="450" Text="{Binding LocalizedTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{Binding Settings.Background}" Foreground="{Binding DataContext.Settings.TextColor,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
-                    </Grid>
+                    <Border BorderBrush="{Binding DataContext.Settings.TextColor,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" BorderThickness="1">
+                        <Grid Height="Auto" Margin="5" Background="{Binding Settings.Background}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Width="400" Text="{Binding NoteText}" FontWeight="SemiBold" TextWrapping="Wrap"  HorizontalAlignment="Left" VerticalAlignment="Center" Background="{Binding Settings.Background}" Foreground="{Binding DataContext.Settings.TextColor,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
+                            <TextBlock Grid.Column="0" Grid.Row="2" Width="400" Text="{Binding LocalizedTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{Binding Settings.Background}" Foreground="{Binding DataContext.Settings.TextColor,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

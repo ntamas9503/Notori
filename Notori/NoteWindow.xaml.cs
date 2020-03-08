@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using NHotkey;
 using NHotkey.Wpf;
@@ -26,6 +27,11 @@ namespace Notori
                 viewModel.SaveNote();
                 Close();
             }
+        }
+
+        private void ShowRemainingCharacters(object sender, TextChangedEventArgs e)
+        {
+            viewModel.ShowRemainingCharacters();
         }
     }
 }

@@ -13,11 +13,17 @@
         Title="NoteWindow" Height="250" Width="250">
     <Border CornerRadius="10" Background="{Binding Path=Settings.Background}" BorderBrush="{Binding Path=Settings.TextColor}" BorderThickness="1">
         <Grid Height="230" Width="230" FocusManager.FocusedElement="{Binding ElementName=NoteBox}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
             <TextBox x:Name="NoteBox" Height="230" Width="230" Background="{Binding Path=Settings.Background}" BorderThickness="0" Foreground="{Binding Path=Settings.TextColor}"
                      AcceptsReturn="True"
                      TextWrapping="Wrap"
-                     MaxLength="300"
-                     Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}"/>
+                     MaxLength="{Binding MaxCharacters}"
+                     Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}"
+                     TextChanged="ShowRemainingCharacters"/>
+            <Label Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding RemainingCharacters}" Background="{Binding Path=Settings.Background}" Foreground="{Binding Path=Settings.TextColor}"/>
         </Grid>
     </Border>
 </Window>
