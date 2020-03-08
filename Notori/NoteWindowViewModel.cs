@@ -13,7 +13,7 @@ namespace Notori
             set
             {
                 note = value;
-                OnPropertyChanged("Note");
+                OnPropertyChanged();
             }
         }
 

@@ -65,11 +65,24 @@ namespace Notori
                 OnPropertyChanged();
             }
         }
-        
-        public MainWindowViewModel(Settings settings)
+
+        public bool IsNoteTakerShowing { get; set; }
+
+        private static MainWindowViewModel VM = null;
+        public static MainWindowViewModel Get
+        {
+            get
+            {
+                if (VM == null)
+                    VM = new MainWindowViewModel();
+                return VM;
+            }
+        }
+
+        public MainWindowViewModel()
         {
             this.notes = new ObservableCollection<Note>();
-            this.Settings = settings;
+            this.Settings = DbManager.GetSettings();
             this.IsDarkMode = Settings.IsDarkMode;
             IsStartingApplication = true;
             DoNotNeedRestart = true;

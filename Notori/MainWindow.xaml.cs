@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using NHotkey;
@@ -11,32 +12,30 @@ namespace Notori
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainWindowViewModel viewModel;
-        private Settings settings;
-
         public MainWindow()
         {
             InitializeComponent();
             HotkeyManager.Current.AddOrReplace("LaunchNoteWindow", Key.N, ModifierKeys.Alt, LaunchNoteWindow);
-            this.settings = DbManager.GetSettings();
-            viewModel = new MainWindowViewModel(settings);
-            this.DataContext = viewModel;
+            this.DataContext = MainWindowViewModel.Get;
         }
 
         private void LaunchNoteWindow(object sender, HotkeyEventArgs e)
         {
-            NoteWindow note = new NoteWindow(settings);
+            if (IsWindowInstantiated<NoteWindow>())
+                return;
+
+            NoteWindow note = new NoteWindow(MainWindowViewModel.Get.Settings);
             note.ShowDialog();
         }
 
         private void OnNotesClicked(object sender, RoutedEventArgs e)
         {
-            viewModel.LoadNotesInList();
+            MainWindowViewModel.Get.LoadNotesInList();
         }
 
         private void OnTodosClicked(object sender, RoutedEventArgs e)
         {
-            viewModel.LoadTodosInList();
+            MainWindowViewModel.Get.LoadTodosInList();
         }
 
         private void OnExitClicked(object sender, RoutedEventArgs e)
@@ -46,29 +45,29 @@ namespace Notori
 
         private void OnCheckedChange(object sender, RoutedEventArgs e)
         {
-            viewModel.UpdateSettings();
-            if (!viewModel.IsStartingApplication)
+            MainWindowViewModel.Get.UpdateSettings();
+            if (!MainWindowViewModel.Get.IsStartingApplication)
             {
                 ShowChangedMessageBox("on");
             }
 
-            viewModel.IsStartingApplication = false;
+            MainWindowViewModel.Get.IsStartingApplication = false;
         }
 
         private void OnUncheckedChange(object sender, RoutedEventArgs e)
         {
-            viewModel.UpdateSettings();
-            if (!viewModel.IsStartingApplication)
+            MainWindowViewModel.Get.UpdateSettings();
+            if (!MainWindowViewModel.Get.IsStartingApplication)
             {
                 ShowChangedMessageBox("off");
             }
 
-            viewModel.IsStartingApplication = false;
+            MainWindowViewModel.Get.IsStartingApplication = false;
         }
 
         private void OnActiveRefresh(object sender, EventArgs e)
         {
-            viewModel.RefreshList();
+            MainWindowViewModel.Get.RefreshList();
         }
 
         private void ShowChangedMessageBox(string onoff)
@@ -79,14 +78,21 @@ namespace Notori
 
         private void OnDeleteClicked(object sender, RoutedEventArgs e)
         {
-            viewModel.DeleteNote();
-            viewModel.RefreshList();
+            MainWindowViewModel.Get.DeleteNote();
+            MainWindowViewModel.Get.RefreshList();
         }
 
         private void OnDeleteAllClicked(object sender, RoutedEventArgs e)
         {
-            viewModel.DeleteAll();
-            viewModel.RefreshList();
+            MainWindowViewModel.Get.DeleteAll();
+            MainWindowViewModel.Get.RefreshList();
+        }
+
+        public static bool IsWindowInstantiated<T>() where T : Window
+        {
+            var windows = Application.Current.Windows.Cast<Window>();
+            var any = windows.Any(s => s is T);
+            return any;
         }
     }
 }

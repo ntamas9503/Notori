@@ -21,8 +21,11 @@ namespace Notori
 
         private void SaveNote(object sender, HotkeyEventArgs e)
         {
-            viewModel.SaveNote();
-            Close();
+            if (MainWindow.IsWindowInstantiated<NoteWindow>())
+            {
+                viewModel.SaveNote();
+                Close();
+            }
         }
     }
 }
